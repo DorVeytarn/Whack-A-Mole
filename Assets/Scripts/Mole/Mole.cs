@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
-public class Mole : MonoBehaviour
+public class Mole : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] protected int _health;
     [SerializeField] protected float _lifetime;
@@ -12,6 +14,19 @@ public class Mole : MonoBehaviour
     [SerializeField] protected Animator _animator;
 
     protected float _currentTime;
+
+    public event UnityAction<Mole> MoleKilled;
+    public event UnityAction<Mole> MoleEscaped;
+
+    private void OnEnable()
+    {
+        StartCoroutine(TimeDown());
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ApplyDamage();
+    }
 
     protected void ApplyDamage()
     {
@@ -24,11 +39,21 @@ public class Mole : MonoBehaviour
     {
         gameObject.SetActive(false);
         StopCoroutine(TimeDown());
+
+        MoleKilled?.Invoke(this);
     }
     protected void Escape()
     {
         _animator.SetTrigger("isTimeOut");
-        Invoke(nameof(Die), 1f);
+        Invoke(nameof(DisableMole), 0.1f);
+        StopCoroutine(TimeDown());
+
+        MoleEscaped?.Invoke(this);
+    }
+
+    protected void DisableMole()
+    {
+        gameObject.SetActive(false);
     }
 
     protected IEnumerator TimeDown()
@@ -38,6 +63,9 @@ public class Mole : MonoBehaviour
         {
             _currentTime--;
             yield return new WaitForSeconds(1f);
+
+            if (_currentTime <= 0)
+                Escape();
         }
     }
 }

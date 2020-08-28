@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MoleSpawner : ObjectPool
 {
     [SerializeField] private GameObject _molePrefab;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _timeBetweenSpawns;
+
+    public event UnityAction<Mole> MoleSetted;
 
     private float _elapsedTime = 0;
 
@@ -39,9 +42,12 @@ public class MoleSpawner : ObjectPool
         }
     }
 
-    private void SetMole(GameObject mole, Transform parent)
+    private void SetMole(GameObject moleTemplate, Transform parent)
     {
-        mole.SetActive(true);
-        mole.transform.SetParent(parent, false);
+        moleTemplate.SetActive(true);
+        moleTemplate.transform.SetParent(parent, false);
+
+        if (moleTemplate.TryGetComponent(out Mole mole))
+            MoleSetted?.Invoke(mole);
     }
 }
