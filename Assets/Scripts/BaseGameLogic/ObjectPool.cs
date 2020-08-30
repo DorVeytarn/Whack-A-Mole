@@ -9,6 +9,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int _capacity;
 
     private List<GameObject> _pool = new List<GameObject>();
+    private List<GameObject> _activeObjects = new List<GameObject>();
 
     protected void Initialize(GameObject prefab)
     {
@@ -25,6 +26,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < _capacity; i++)
         {
+
             int randomIndex = Random.Range(0, prefabs.Length);
             GameObject spawnedObject = Instantiate(prefabs[randomIndex], _container.transform);
             spawnedObject.SetActive(false);
@@ -35,7 +37,16 @@ public class ObjectPool : MonoBehaviour
 
     protected bool TryGetObject(out GameObject result)
     {
-        result = _pool.FirstOrDefault(spawnedObj => spawnedObj.activeSelf == false);
+        //result = _pool.FirstOrDefault(spawnedObj => spawnedObj.activeSelf == false);
+
+        foreach (var gameObject in _pool)
+        {
+            if (gameObject.activeSelf == false)
+                _activeObjects.Add(gameObject);
+        }
+
+        result = _activeObjects[Random.Range(0, _activeObjects.Count)];
+        _activeObjects.Clear();
 
         return result != null;
     }

@@ -7,11 +7,12 @@ using UnityEngine.Events;
 public class MoleStateHandler : MonoBehaviour
 {
     [SerializeField] MoleSpawner _moleSpawner;
+    [SerializeField] private LevelManager _levelManager;
 
     private List<Mole> _currentMoles = new List<Mole>();
 
-    public event UnityAction MoleEscaped;
-    public event UnityAction MoleKilled;
+    public event UnityAction<Mole> MoleEscaped;
+    public event UnityAction<Mole> MoleKilled;
 
     private void OnEnable()
     {
@@ -47,7 +48,7 @@ public class MoleStateHandler : MonoBehaviour
 
     private void OnMoleEscaped(Mole mole)
     {
-        MoleEscaped?.Invoke();
+        MoleEscaped?.Invoke(mole);
 
         mole.MoleEscaped -= OnMoleEscaped;
         mole.MoleKilled -= OnMoleKilled;
@@ -57,7 +58,7 @@ public class MoleStateHandler : MonoBehaviour
 
     private void OnMoleKilled(Mole mole)
     {
-        MoleKilled?.Invoke();
+        MoleKilled?.Invoke(mole);
 
         mole.MoleEscaped -= OnMoleEscaped;
         mole.MoleKilled -= OnMoleKilled;

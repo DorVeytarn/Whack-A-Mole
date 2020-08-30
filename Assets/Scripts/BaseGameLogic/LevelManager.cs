@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("Количество дырок в рядах")]
     [SerializeField] private int[] _holeAmountInRaw;
 
     public int[] HoleAmountInRaw => _holeAmountInRaw;
+
 }
