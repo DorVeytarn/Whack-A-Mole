@@ -9,9 +9,9 @@ using UnityEngine.EventSystems;
 public class Mole : MonoBehaviour, IPointerDownHandler
 {
     [Header("Base Properties")]
-    [SerializeField] protected int _health;
-    [SerializeField] protected float _lifetime;
-    [SerializeField] protected Animator _animator;
+    [SerializeField] private int _health;
+    [SerializeField] private float _lifetime;
+    [SerializeField] private Animator _animator;
     [SerializeField] private float _climbingSpeed;
 
     [Header("Time Dependece")]
@@ -19,9 +19,9 @@ public class Mole : MonoBehaviour, IPointerDownHandler
     [SerializeField] private AnimationCurve _moleLifetimeMultiplier;
     [SerializeField] private AnimationCurve _moleAdditionalHealth;
 
-    protected float _currentTime;
-    protected float _elapsedTime;
-    protected WaitForSeconds _oneSecond = new WaitForSeconds(1f);
+    private float _currentTime;
+    private float _elapsedTime;
+    private WaitForSeconds _oneSecond = new WaitForSeconds(1f);
 
     public event UnityAction<Mole> MoleKilled;
     public event UnityAction<Mole> MoleEscaped;
@@ -29,6 +29,7 @@ public class Mole : MonoBehaviour, IPointerDownHandler
     private void OnEnable()
     {
         _animator.speed = _climbingSpeed;
+
         StartCoroutine(TimeDown());
         StartCoroutine(ChangeProperties());
     }
@@ -38,21 +39,24 @@ public class Mole : MonoBehaviour, IPointerDownHandler
         ApplyDamage();
     }
 
-    protected void ApplyDamage()
+    private void ApplyDamage()
     {
+
         _health--;
         if (_health <= 0)
             Die();
     }
 
-    protected void Die()
+    private void Die()
     {
+        
+
         gameObject.SetActive(false);
         StopCoroutine(TimeDown());
 
         MoleKilled?.Invoke(this);
     }
-    protected void Escape()
+    private void Escape()
     {
         _animator.SetTrigger("isTimeOut");
         Invoke(nameof(DisableMole), 0.1f);
@@ -61,12 +65,12 @@ public class Mole : MonoBehaviour, IPointerDownHandler
         MoleEscaped?.Invoke(this);
     }
 
-    protected void DisableMole()
+    private void DisableMole()
     {
         gameObject.SetActive(false);
     }
 
-    protected IEnumerator TimeDown()
+    private IEnumerator TimeDown()
     {
         _currentTime = _lifetime;
         while (true)
@@ -79,7 +83,7 @@ public class Mole : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    protected IEnumerator ChangeProperties()
+    private IEnumerator ChangeProperties()
     {
         while (true)
         {

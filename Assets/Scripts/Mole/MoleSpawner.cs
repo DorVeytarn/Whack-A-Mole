@@ -34,11 +34,6 @@ public class MoleSpawner : ObjectPool
         _mainPanel.GameStarted -= OnGameStarted;
     }
 
-    private void OnGameStarted()
-    {
-        _canSpawn = true;
-        StartCoroutine(ChangeTimeBetweenSpawn());
-    }
 
     private void Start()
     {
@@ -69,6 +64,12 @@ public class MoleSpawner : ObjectPool
         }
     }
 
+    private void OnGameStarted()
+    {
+        _canSpawn = true;
+        StartCoroutine(ChangeTimeBetweenSpawn());
+    }
+
     private void GetSpawnPoints()
     {
         MoleSpawnPoint[] points = GetComponentsInChildren<MoleSpawnPoint>();
@@ -84,7 +85,6 @@ public class MoleSpawner : ObjectPool
         _spawnPoints.Remove(deletedPoint);
         StartCoroutine(ReturnPoint(deletedPoint, timeValue));
     }
-
 
     private void SetMole(GameObject moleTemplate, Transform parent)
     {

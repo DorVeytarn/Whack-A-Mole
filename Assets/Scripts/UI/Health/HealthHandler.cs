@@ -35,16 +35,9 @@ public class HealthHandler : MonoBehaviour
 
     private void OnMoleEscaped(Mole mole)
     {
-        if (mole.TryGetComponent(out BombMole bombMole))
-        {
-            Debug.Log("BombMole");
-        }
-        else if (mole.TryGetComponent(out HeartMole heartMole))
-        {
-            Debug.Log("HeartMole");
-        }
-        else
+        if (!mole.TryGetComponent(out BombMole bombMole) && !mole.TryGetComponent(out HeartMole heartMole))
             _currentHealth--;
+
         UpdateHealth();
     }
 
@@ -53,12 +46,10 @@ public class HealthHandler : MonoBehaviour
         if (mole.TryGetComponent(out BombMole bombMole))
         {
             _currentHealth -= 2;
-            Debug.Log("BombMole");
         }
         else if (mole.TryGetComponent(out HeartMole heartMole))
         {
             _currentHealth++;
-            Debug.Log("HeartMole");
         }
 
         UpdateHealth();

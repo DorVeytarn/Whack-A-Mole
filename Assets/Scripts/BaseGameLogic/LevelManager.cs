@@ -9,4 +9,10 @@ public class LevelManager : MonoBehaviour
 
     public int[] HoleAmountInRaw => _holeAmountInRaw;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+    }
+
 }

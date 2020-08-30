@@ -49,4 +49,9 @@ public class ScoreHandler : MonoBehaviour
         _scoreText.text = "Текущий счёт: " + _currentScore.ToString();
         _hightScoreText.text = "Рекорд: " + _hightScore.ToString();
     }
+
+    private void OnApplicationQuit()
+    {
+        Saver.SaveScore("Score", _hightScore);
+    }
 }
