@@ -91,28 +91,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _lifetime: 0.7
+  _lifetime: 0.5
   _animator: {fileID: 1464443981626501219}
-  _climbingSpeed: 3
-  _audioSource: {fileID: 5211982174983441024}
-  _damageSound: {fileID: 8300000, guid: 19e611499d5b6c64299864b43eab81f9, type: 3}
+  _climbingSpeed: 4
   _moleSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 4
-      inSlope: 0.008333334
-      outSlope: 0.008333334
+      inSlope: 0.016666668
+      outSlope: 0.016666668
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 120
-      value: 5
-      inSlope: 0.008333334
-      outSlope: 0.008333334
+      value: 6
+      inSlope: 0.016666668
+      outSlope: 0.016666668
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -125,7 +123,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.7
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -133,8 +131,17 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 88.80669
+      value: 0.38274297
+      inSlope: -0.003969519
+      outSlope: -0.003969519
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33854306
+    - serializedVersion: 3
       time: 120
-      value: 0.5
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 136

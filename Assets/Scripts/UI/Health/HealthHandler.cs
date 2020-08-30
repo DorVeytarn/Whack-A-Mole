@@ -47,7 +47,7 @@ public class HealthHandler : MonoBehaviour
         {
             _currentHealth -= 2;
         }
-        else if (mole.TryGetComponent(out HeartMole heartMole))
+        else if (mole.TryGetComponent(out HeartMole heartMole) && _currentHealth <= 20)
         {
             _currentHealth++;
         }

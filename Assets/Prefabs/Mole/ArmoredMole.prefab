@@ -94,8 +94,6 @@ MonoBehaviour:
   _lifetime: 1.5
   _animator: {fileID: 1464443981626501219}
   _climbingSpeed: 1
-  _audioSource: {fileID: -324937042827519403}
-  _damageSound: {fileID: 8300000, guid: 19e611499d5b6c64299864b43eab81f9, type: 3}
   _moleSpeedMultiplier:
     serializedVersion: 2
     m_Curve:
@@ -110,7 +108,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 60
-      value: 2
+      value: 4
       inSlope: 0
       outSlope: 0
       tangentMode: 0
